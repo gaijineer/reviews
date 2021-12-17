@@ -12,6 +12,13 @@ const Review = () => {
     });
   }
 
+  function randomPerson() {
+    let randomNum = Math.floor(Math.random() * people.length);
+    randomNum == index && randomNum++;
+    randomNum == people.length && (randomNum -= 2);
+    setIndex(randomNum);
+  }
+
   return (
     <article className="review">
       <div className="img-container">
@@ -24,24 +31,35 @@ const Review = () => {
       <p className="job">{job}</p>
       <p className="info">{text}</p>
       <div className="button-container">
-        <button
-          className="prev-btn"
-          onClick={() => {
-            changePerson(-1);
-          }}
-        >
-          <FaChevronLeft />
-        </button>
-        <button
-          className="next-btn"
-          onClick={() => {
-            changePerson(1);
-          }}
-        >
-          <FaChevronRight />
-        </button>
+        {index > 0 ? (
+          <button
+            className="prev-btn"
+            onClick={() => {
+              changePerson(-1);
+            }}
+          >
+            <FaChevronLeft />
+          </button>
+        ) : null}
+        {index < people.length - 1 ? (
+          <button
+            className="next-btn"
+            onClick={() => {
+              changePerson(1);
+            }}
+          >
+            <FaChevronRight />
+          </button>
+        ) : null}
       </div>
-      <button className="random-btn">誰が出るかな？</button>
+      <button
+        className="random-btn"
+        onClick={() => {
+          randomPerson();
+        }}
+      >
+        誰が出るかな？
+      </button>
     </article>
   );
 };
